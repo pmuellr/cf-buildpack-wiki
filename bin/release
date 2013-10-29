@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Licensed under the Apache License. See footer for details.
+
+# bin/release <build-dir>
+
+echo "config_vars:"
+echo "    PATH: bin:/usr/local/bin:/usr/bin:/bin"
+echo "default_process_types:"
+echo "    web: bin/node wiki/node_modules/.bin/coffee cf-wiki.coffee"

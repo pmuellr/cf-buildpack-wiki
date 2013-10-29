@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`/..
+BASE_DIR=`pwd`
+
+mkdir -p ${BASE_DIR}/tmp/staged/app ${BASE_DIR}/tmp/cache
+
+cd ${BASE_DIR}/tmp/staged
+
+CMD="${BASE_DIR}/bin/compile ${BASE_DIR}/tmp/staged/app ${BASE_DIR}/tmp/cache"
+${CMD}

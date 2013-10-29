@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`/..
+BASE_DIR=`pwd`
+
+cd ${BASE_DIR}/tmp/staged/app
+
+PORT=3000 VCAP_SERVICES='{"mongo":[{"credentials":{"url":"mongodb://localhost:27017/wiki-sample"}}]}' wiki/node_modules/.bin/coffee cf-wiki.coffee
