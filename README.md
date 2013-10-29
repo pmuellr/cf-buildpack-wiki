@@ -12,9 +12,10 @@ usage
         mkdir wiki-sample
         cd wiki-sample
 
-* create any a config.json that directory.  There should be one entry, for
-  the eventual hosted url of your server.  In this case, as you can see that
-  it will be `bob-sample-wiki.example.com`.  You will need to use either 
+* create a `config.json` file in that directory.  There should be one entry, for
+  the eventual hosted url of your server.  In this case, given the answers
+  to the questions we answer below, the hosted url will be
+  `bob-sample-wiki.example.com`.  You will need to use either 
   https or http as appropriate, in the url.  Eg:
 
         {
