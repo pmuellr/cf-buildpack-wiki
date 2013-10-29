@@ -9,7 +9,7 @@ PROGRAM = path.basename(__filename).split(".")[0]
 
 #-------------------------------------------------------------------------------
 main = ->
-    log "cwd:      #{process.cwd}"
+    log "cwd:      #{process.cwd()}"
     log "env:      #{JSON.stringify process.env, null, 4}"
 
     # get port

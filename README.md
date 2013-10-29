@@ -12,9 +12,15 @@ usage
         mkdir wiki-sample
         cd wiki-sample
 
-* create any old file in that directory:
+* create any a config.json that directory.  There should be one entry, for
+  the eventual hosted url of your server.  In this case, as you can see that
+  it will be `bob-sample-wiki.example.com`.  You will need to use either 
+  https or http as appropriate, in the url.  Eg:
 
-        echo "trying cf-buildpack-wiki" > README.md
+        {
+            "url": "https://bob-sample-wiki.example.com"
+        } 
+        
 
 * push with the buildpack:
 
