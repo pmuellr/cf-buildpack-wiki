@@ -16,7 +16,10 @@ main = ->
     port = parseInt(process.env.VCAP_APP_PORT || process.env.PORT || "-1", 10)
     port = -1 if isNaN port
 
-    error "port environment variable not set" if port is -1
+    if port is -1
+        error "port environment variable not set" 
+        port = 3000
+
     log "port:     #{port}"
 
     mongoURL = process.env.MONGODB_URL
@@ -25,6 +28,7 @@ main = ->
             vcapServices = JSON.parse(process.env.VCAP_SERVICES)
         catch e
             error "env VCAP_SERVICES is not a JSON string: #{e}; #{process.env.VCAP_SERVICES}"
+            vcapServices = {}
 
         for serviceName, service of vcapServices
             if serviceName.match /^mongo.*/
@@ -34,6 +38,7 @@ main = ->
 
     unless mongoURL?
         error "mongo url not found in env VCAP_SERVICES: #{process.env.VCAP_SERVICES}"
+        mongoURL = "mongoURL-not-set"
 
     log "mongoURL: #{mongoURL}"
 
@@ -48,6 +53,7 @@ main = ->
         content = JSON.parse contents
     catch e
         error "config.json contents not valid JSON: #{e}; #{contents}"
+        content = {}
 
     content.database =
         type:   "./mongodb"
@@ -65,6 +71,7 @@ main = ->
 
     # set env MONGO_URI
     process.chdir("wiki")
+
     require "./wiki/lib/cli"
 
 #-------------------------------------------------------------------------------
@@ -78,8 +85,8 @@ error = (message) ->
     log "**********************"
     log "ERROR: #{message}"
     log "**********************"
-    log "exiting..."
-    process.exit 1
+    log "continuing anyway..."
+    # process.exit 1
 
 #-------------------------------------------------------------------------------
 main()
