@@ -19,19 +19,20 @@ main = ->
     error "port environment variable not set" if port is -1
     log "port:     #{port}"
 
-    try 
-        vcapServices = JSON.parse(process.env.VCAP_SERVICES)
-    catch e
-        error "env VCAP_SERVICES is not a JSON string: #{e}; #{process.env.VCAP_SERVICES}"
+    mongoURL = process.env.MONGODB_URL
+    unless mongoURL?
+        try 
+            vcapServices = JSON.parse(process.env.VCAP_SERVICES)
+        catch e
+            error "env VCAP_SERVICES is not a JSON string: #{e}; #{process.env.VCAP_SERVICES}"
 
-    mongoURL = undefined
-    for serviceName, service of vcapServices
-        if serviceName.match /^mongo.*/
-            mongoURL =             service?[0]?.credentials?.uri
-            mongoURL = mongoURL || service?[0]?.credentials?.url
-            break
+        for serviceName, service of vcapServices
+            if serviceName.match /^mongo.*/
+                mongoURL =             service?[0]?.credentials?.uri
+                mongoURL = mongoURL || service?[0]?.credentials?.url
+                break
 
-    if !mongoURL?
+    unless mongoURL?
         error "mongo url not found in env VCAP_SERVICES: #{process.env.VCAP_SERVICES}"
 
     log "mongoURL: #{mongoURL}"
